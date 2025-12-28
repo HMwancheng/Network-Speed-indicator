@@ -67,6 +67,14 @@ public class NetworkSpeedMonitor {
         long currentTxBytes = TrafficStats.getTotalTxBytes();
         long currentTimeStamp = System.currentTimeMillis();
 
+        // Handle unsupported case (TrafficStats returns -1)
+        if (currentRxBytes == TrafficStats.UNSUPPORTED) {
+            currentRxBytes = lastTotalRxBytes;
+        }
+        if (currentTxBytes == TrafficStats.UNSUPPORTED) {
+            currentTxBytes = lastTotalTxBytes;
+        }
+
         long rxBytes = currentRxBytes - lastTotalRxBytes;
         long txBytes = currentTxBytes - lastTotalTxBytes;
         long timeInterval = currentTimeStamp - lastTimeStamp;
@@ -75,8 +83,9 @@ public class NetworkSpeedMonitor {
             timeInterval = 1;
         }
 
-        long downloadSpeed = rxBytes * 1000 / timeInterval;
-        long uploadSpeed = txBytes * 1000 / timeInterval;
+        // Ensure non-negative speeds
+        long downloadSpeed = Math.max(0, rxBytes * 1000 / timeInterval);
+        long uploadSpeed = Math.max(0, txBytes * 1000 / timeInterval);
         long totalSpeed = downloadSpeed + uploadSpeed;
 
         if (listener != null) {

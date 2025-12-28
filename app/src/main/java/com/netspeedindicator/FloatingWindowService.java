@@ -129,7 +129,8 @@ public class FloatingWindowService extends Service {
         params = new WindowManager.LayoutParams();
         
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            params.type = showOverStatusBar ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            // For Android O and above, TYPE_APPLICATION_OVERLAY is the only valid type for overlays
+            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         } else {
             params.type = showOverStatusBar ? WindowManager.LayoutParams.TYPE_SYSTEM_ERROR : WindowManager.LayoutParams.TYPE_PHONE;
         }

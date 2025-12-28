@@ -123,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         
+        // Load text color
+        int textColor = preferences.getInt("text_color", Color.WHITE);
+        // Update UI to reflect selected color
+        updateColorButtons(textColor);
+        
         // Load text size
         int textSize = preferences.getInt("text_size", 14);
         textSizeSeek.setProgress(textSize);
@@ -285,6 +290,15 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "悬浮窗权限被拒绝", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    
+    private void updateColorButtons(int selectedColor) {
+        // Update button appearances based on selected color
+        colorWhite.setSelected(selectedColor == Color.WHITE);
+        colorBlack.setSelected(selectedColor == Color.BLACK);
+        colorGreen.setSelected(selectedColor == Color.GREEN);
+        colorRed.setSelected(selectedColor == Color.RED);
+        colorBlue.setSelected(selectedColor == Color.BLUE);
     }
     
     private void notifySettingsChanged() {
