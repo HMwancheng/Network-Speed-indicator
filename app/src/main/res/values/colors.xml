@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="default_text_color">#FFFFFFFF</color>
+    <color name="lightgray">#FFD3D3D3</color>
 </resources>
